@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2019 at 10:45 PM
+-- Generation Time: Jan 30, 2019 at 11:15 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(16) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `user_password` varchar(16) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
