@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2019 at 10:31 PM
+-- Generation Time: Jan 30, 2019 at 10:43 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -32,8 +32,10 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
-  `user_password` varchar(10) NOT NULL,
+  `user_password` varchar(16) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
+  `CV` varchar(50) NOT NULL,
+  `image` varchar(50) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
