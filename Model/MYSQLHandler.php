@@ -51,6 +51,7 @@ class MYSQLHandler implements DbHandler{
             mysqli_close($this->_db_handler);
         }
     }   
+    
     public function get_record_by_id($id,$primary_key)
     {
         $table = $this->_table;
