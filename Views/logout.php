@@ -1,7 +1,8 @@
 <?php
-require_once '../autoload.php'; //for debugging
-session_start();
-if (isset($_SESSION["user_id"])) {
+// require_once('../autoload.php'); //for debugging
+// session_start();
+if (isset($_SESSION["user_id"]))
+{
     $logout = new UserOperations();
     $logout->logout($_SESSION["user_id"]);
     unset($_SESSION["user_id"]);

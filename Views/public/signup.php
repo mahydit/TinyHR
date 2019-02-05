@@ -1,6 +1,6 @@
 <?php
-// require_once('../../autoload.php'); //for debugging
-// session_start();
+require_once('../../autoload.php'); //for debugging
+session_start();
 $errors =array();
 $max_size = 1000000;
 $allowed_img_extension = array(
