@@ -1,6 +1,8 @@
 <?php
 $current_index = isset($_GET["id"]) && is_numeric($_GET["id"]) ? $_GET["id"] : 0;
-$items = $db->get_record_by_id($current_index, 'user_id');
+$admin = new Admin();
+$items = $admin->get_member_information($current_index);
+// $items = $db->get_record_by_id($current_index, 'user_id');
 
 ?>
 <html>

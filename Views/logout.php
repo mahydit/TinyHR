@@ -1,6 +1,6 @@
 <?php
-require_once('../autoload.php'); //for debugging
-session_start();
+// require_once('../autoload.php'); //for debugging
+// session_start();
 if (isset($_SESSION["user_id"]))
 {
     $logout = new UserOperations();
@@ -12,5 +12,4 @@ if (isset($_SESSION["user_id"]))
 // (isset($_SESSION["is_admin"]))?unset($_SESSION["is_admin"]);//REVIEW:
 session_destroy();
 // header("Location: index.php");
-require_once("../index.php");
-?>
+require_once "../index.php";
