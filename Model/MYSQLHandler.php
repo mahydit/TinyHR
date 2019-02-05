@@ -13,7 +13,6 @@ class MYSQLHandler implements DbHandler{
     public function connect()
     {
         $handler = mysqli_connect(__HOST__, __USER__, __PASS__, __DB__);
-        
         // Check connection
         if($handler){
             $this->_db_handler=$handler;
@@ -39,7 +38,7 @@ class MYSQLHandler implements DbHandler{
             $sql .= " from `$table`";
             $sql = str_replace(", from", "from",$sql);
         }
-        $sql .= " limit $start," .__RECORDS_PER_PAGE__;
+        $sql .= " limit $start," .__RECORDS_PER_PAGE__; //do we need this?
         return $this->get_results($sql);
     }
 
@@ -71,7 +70,7 @@ class MYSQLHandler implements DbHandler{
             {
                  $_arr_result[]= array_change_key_case($row);
             }
-                $this->disconnect();
+                $this->disconnect(); //removed 2 warnings
                 return $_arr_result;
        }
         else
@@ -89,17 +88,24 @@ class MYSQLHandler implements DbHandler{
         return $this->get_results($sql);
     }
 
+    public function search_exact($column, $column_value)
+    {
+        $table=$this->_table;
+        $sql = "select * from `$table` where `$column` = '".$column_value."'";
+        return $this->get_results($sql);
+    }
+
     public function save($new_value)
     {
         if(is_array($new_value))
         {
             $table=$this->_table;
             $sql1= "insert into `$table` (";
-            $sql2="values (";
+            $sql2=" values (";
             foreach ($new_value as $key => $value) 
             {
                 $sql1 .= "`$key` ,";
-                $sql2 .= "`$value` ,";
+                $sql2 .= "'$value' ,";
             }
             $sql1= $sql1.")";
             $sql2= $sql2.")";
@@ -147,6 +153,33 @@ class MYSQLHandler implements DbHandler{
             $sql = str_replace(", from", "from",$sql);
         }
         return $this->get_results($sql);
+    }
+
+    public function update($new_value, $primary_key, $id)
+    {
+        if(is_array($new_value))
+        {
+            $table=$this->_table;
+            $sql= "update `$table` set ";
+            foreach ($new_value as $key => $value) 
+            {
+                $sql .= "`$key` = '$value',";
+            }
+            $sql= str_replace(",","",$sql);
+            $sql = $sql . " where `$primary_key` = '$id'";
+            $this->debug($sql);
+            if(mysqli_query($this->_db_handler,$sql))
+            {
+                $this->disconnect();
+                return true;
+            }
+            else
+            {
+                $this->disconnect();
+                return false;
+            }
+
+        }
     }
 }
 ?>

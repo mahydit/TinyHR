@@ -1,6 +1,6 @@
 <?php
-require_once('../../autoload.php'); //for debugging
-session_start(); //for debugging
+// require_once('../../autoload.php'); //for debugging
+// session_start();
 $errors =array();
 $max_size = 1000000;
 $allowed_img_extension = array(
@@ -36,7 +36,7 @@ if(isset($_POST["submit"]))
 
     if(count($errors)===0)
     {
-        $signup = new UserLogin();
+        $signup = new UserOperations();
         $user_info = array(
             'name'=>trim($_POST['name']),
             'job' => trim($_POST['job']),
@@ -44,6 +44,7 @@ if(isset($_POST["submit"]))
             'user_password'=>password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
             'CV'=>trim($_POST['username']).".pdf",
             'image'=>trim($_POST['username']).".jpg",
+            'is_onlline'=>1,
         );
         if(!$signup->sign_up($user_info))
         {
@@ -114,7 +115,7 @@ if(isset($_POST["submit"]))
 <br>
     <div class="col-md-12">
         <h4 class="mb-3">Personal Information</h4>
-        <form class="needs-validation" novalidate="" action="#" method="POST" enctype="multipart/form-data">
+        <form class="needs-validation" novalidate="" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Full Name" max="100" value="" required>
@@ -174,7 +175,7 @@ if(isset($_POST["submit"]))
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Sign Up!</button>
-        <button type="button" class="btn btn-link"><a href="login.php">Already have an account? login!</a></button>
+            <button type="button" class="btn btn-link"><a href="<?php echo $_SERVER['PHP_SELF']."?login";?>">Already have an account? login!</a></button>
 
         </form>
     </div>
