@@ -12,7 +12,7 @@ class Member{
     public function get_member_information()
     {
         // $handler = $this->_db_handler;
-        $handler = = new  MYSQLHandler(__USER_TABLE__);
+        $handler = new  MYSQLHandler(__USER_TABLE__);
         $info = $handler->get_record_by_id($this->_user_id,__PRIMARY_KEY__);
         return $info[0];
     }

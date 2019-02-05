@@ -91,12 +91,14 @@ a:hover, a:active {
 <table cellspacing="10">
 
 <?php
-
+$admin = new Admin();
 if (isset($_POST["showall"])) {
-    $items = $db->get_full_data();
+    // $items = $db->get_full_data();
+    $items = $admin->get_all_members();
 } else if (isset($_POST["search"])) {
     $keyword = (isset($_POST["keyword"])) ? $_POST["keyword"] : -1;
-    $items = $db->search('name', trim($keyword));
+    // $items = $db->search('name', trim($keyword));
+    $items = $admin->search_member($keyword);
 } else {
     $items = $db->get_data(array(), $current_index);
 }
