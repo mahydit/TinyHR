@@ -1,7 +1,8 @@
 <?php
-require_once('../../autoload.php'); //for debugging
-session_start(); //for debugging
+// require_once('../../autoload.php'); //for debugging
+// session_start(); //for debugging
 $errors=array();
+
 if(isset($_POST["submit"]))
 {
     if(!isset($_POST["username"])&& empty($_POST["username"]))
@@ -15,12 +16,15 @@ if(isset($_POST["submit"]))
     }
     if(count($errors)===0)
     {
-        $login = new UserLogin();
-        if($login->login_user(trim($_POST["username"]),password_hash(trim($_POST["password"]), PASSWORD_DEFAULT)))
-        echo "logged in";
-        else
-        echo "Nope";
-
+        $login = new UserOperations();
+        if(!$login->login_user(trim($_POST["username"]),trim($_POST["password"]), PASSWORD_DEFAULT))
+        {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Oh something went wrong!</strong> Check your username and password again.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>';
+        }
     }
     else
     {
@@ -59,13 +63,17 @@ if(isset($_POST["submit"]))
    }
 
    body {
-       display: -ms-flexbox;
-       display: flex;
-       -ms-flex-align: center;
+       /* display: -ms-flexbox; */
+       /* display: flex; */
+       /* -ms-flex-align: center; */
        align-items: center;
        padding-top: 40px;
        padding-bottom: 40px;
        background-color: #f5f5f5;
+   }
+
+   .form-container{
+    margin-top:15%;
    }
 
    .form-signin {
@@ -107,8 +115,9 @@ if(isset($_POST["submit"]))
 
 
 
-<body class="text-center ">
-    <form class="form-signin"action="#" method="POST" enctype="multipart/form-data">
+<body class="text-center container">
+<div class="form-container">
+    <form class="form-signin"action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputUsername" class="sr-only">Username</label>
         <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus="">
@@ -120,8 +129,9 @@ if(isset($_POST["submit"]))
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
-        <button type="button" class="btn btn-link"><a href="signup.php">New user? Create and account NOW!</a></button>
+        <button type="button" class="btn btn-link"><a href="<?php echo $_SERVER['PHP_SELF']."?signup"; ?>">New user? Create and account NOW!</a></button>
     </form>
+    </div>
 
 
 

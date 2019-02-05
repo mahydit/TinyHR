@@ -14,7 +14,6 @@ class MYSQLHandler implements DbHandler
     public function connect()
     {
         $handler = mysqli_connect(__HOST__, __USER__, __PASS__, __DB__);
-
         // Check connection
         if ($handler) {
             $this->_db_handler = $handler;
@@ -60,16 +59,20 @@ class MYSQLHandler implements DbHandler
         $_handler_result = mysqli_query($this->_db_handler, $sql);
         $_arr_result = array();
 
-        if ($_handler_result) {
-            while ($row = mysqli_fetch_array($_handler_result, MYSQLI_ASSOC)) {
+        if ($_handler_result) 
+        {
+            while ($row = mysqli_fetch_array($_handler_result, MYSQLI_ASSOC)) 
+            {
                 $_arr_result[] = array_change_key_case($row);
             }
+                $this->disconnect();
+                return $_arr_result;
+       }
+        else
+        {
             $this->disconnect();
             return $_arr_result;
-        } else {
-            $this->disconnect();
-            return false;
-        }
+        } 
 
     }
 
@@ -80,15 +83,25 @@ class MYSQLHandler implements DbHandler
         return $this->get_results($sql);
     }
 
+    public function search_exact($column, $column_value)
+    {
+        $table=$this->_table;
+        $sql = "select * from `$table` where `$column` = '".$column_value."'";
+        return $this->get_results($sql);
+    }
+
     public function save($new_value)
     {
-        if (is_array($new_value)) {
-            $table = $this->_table;
-            $sql1 = "insert into `$table` (";
-            $sql2 = "values (";
-            foreach ($new_value as $key => $value) {
+        if(is_array($new_value))
+        {
+            $table=$this->_table;
+            $sql1= "insert into `$table` (";
+            $sql2=" values (";
+            foreach ($new_value as $key => $value) 
+            {
+
                 $sql1 .= "`$key` ,";
-                $sql2 .= "`$value` ,";
+                $sql2 .= "'$value' ,";
             }
             $sql1 = $sql1 . ")";
             $sql2 = $sql2 . ")";
@@ -128,5 +141,32 @@ class MYSQLHandler implements DbHandler
             $sql = str_replace(", from", "from", $sql);
         }
         return $this->get_results($sql);
+    }
+
+    public function update($new_value, $primary_key, $id)
+    {
+        if(is_array($new_value))
+        {
+            $table=$this->_table;
+            $sql= "update `$table` set ";
+            foreach ($new_value as $key => $value) 
+            {
+                $sql .= "`$key` = '$value',";
+            }
+            $sql= str_replace(",","",$sql);
+            $sql = $sql . " where `$primary_key` = '$id'";
+            $this->debug($sql);
+            if(mysqli_query($this->_db_handler,$sql))
+            {
+                $this->disconnect();
+                return true;
+            }
+            else
+            {
+                $this->disconnect();
+                return false;
+            }
+
+        }
     }
 }

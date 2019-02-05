@@ -1,4 +1,5 @@
 <?php
+// echo "Admin: Users list";
 $current_index = isset($_GET["current"]) && is_numeric($_GET["current"]) ? $_GET["current"] : 0;
 $next_index = ($current_index + __RECORD_PER_PAGE__) ? $current_index + __RECORD_PER_PAGE__ : 0;
 $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - __RECORD_PER_PAGE__ : 0;
