@@ -1,12 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 require_once "autoload.php";
-// define("_ALLOW_ACCESS", 1);
+define("_ALLOW_ACCESS", 1); 
 session_start();
 session_regenerate_id();
 
