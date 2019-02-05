@@ -53,6 +53,7 @@ footer {
   }
 }
 </style>
+<div class="container">
 <table cellspacing="10">
   <?php
 foreach ($items as $item) {
@@ -66,5 +67,6 @@ foreach ($items as $item) {
 }
 ?>
 </table>
+</div>
 </html>
 
