@@ -120,7 +120,7 @@ class UserOperations{
         $handler->save($user_info);
 
         $this->_user_id=$this->find_user_id($user_info['username']);
-        $this->update_user_status(1,__PRIMARY_KEY__,$this->_user_id);
+        $this->update_user_status(1,$this->_user_id);
 
         $this->save_user_id_to_session();
         $this->save_user_type_to_session();
