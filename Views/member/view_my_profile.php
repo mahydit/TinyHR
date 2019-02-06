@@ -3,29 +3,72 @@
 echo "member user";
 $member = new Member($_SESSION["user_id"]);
 $data = $member->get_member_information();
-echo "<h1> " . $data['name'] . "</h1>";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Profile</title>
+    <style>
+        .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        }
+
+        .title {
+        color: grey;
+        font-size: 18px;
+        }
+
+        button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+        }
+
+        a {
+        text-decoration: none;
+        font-size: 22px;
+        color: black;
+        }
+
+        button:hover, a:hover {
+        opacity: 0.7;
+        }
+</style>
 </head>
 <body>
+    <h2 style="text-align:center">Profile</h2>
 
+    <div class="card">
+    <!-- <img src="/w3images/team2.jpg" alt="John" style="width:100%"> -->
+    <?php $photo = $data["image"];
+echo "<img src='../TinyHR/images/" . $photo . "' style='width:100%'>";
+?>
+    <h1><?php echo $data['name']; ?></h1>
+    <p class="title"><?php echo $data['job']; ?></p>
+    <p><?php $cv = $data["cv"];
+echo "<a href='../TinyHR/cv/" . $cv . "'>Download CV</a>";
+?></p>
+    <div style="margin: 24px 0;">
+        <!-- <a href="#"><i class="fa fa-dribbble"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-facebook"></i></a> -->
+    </div>
+    <p><button>Edit</button></p>
+    </div>
 
-<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
