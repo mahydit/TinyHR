@@ -68,6 +68,7 @@ echo "<a href='../TinyHR/cv/" . $cv . "'>Download CV</a>";
         <a href="#"><i class="fa fa-facebook"></i></a> -->
     </div>
     <p><button>Edit</button></p>
+    <p><button>Logout</button></p>
     </div>
 
 </body>
