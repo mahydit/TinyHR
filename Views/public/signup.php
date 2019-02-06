@@ -1,72 +1,62 @@
 <?php
-require_once('../../autoload.php'); //for debugging
+require_once '../../autoload.php'; //for debugging
 session_start();
-$errors =array();
+$errors = array();
 $max_size = 1000000;
 $allowed_img_extension = array(
     "jpg",
-    "jpeg"
+    "jpeg",
 );
 $allowed_cv_extension = array("pdf");
-if(isset($_POST["submit"]))
-{
-    if(isset($_FILES["img"]) && isset($_FILES["cv"]))
-    {
-        if(($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
+if (isset($_POST["submit"])) {
+    if (isset($_FILES["img"]) && isset($_FILES["cv"])) {
+        if (($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
             $errors[] = 'Please re-upload your image and remember that max size is 1mb.<br>';
         }
 
-        if(($_FILES["cv"]['size'] > $max_size) || ($_FILES["cv"]["size"] == 0)) {
+        if (($_FILES["cv"]['size'] > $max_size) || ($_FILES["cv"]["size"] == 0)) {
             $errors[] = ' Please re-upload your CV and remember that max size is 1mb.<br>';
         }
 
-        if(!in_array($_FILES["img"]["type"], $allowed_img_extension) && (empty($_FILES["img"]["type"]))) {
+        if (!in_array($_FILES["img"]["type"], $allowed_img_extension) && (empty($_FILES["img"]["type"]))) {
             $errors[] = 'Invalid image type, only jpg is acceptable.<br>';
         }
 
-        if(!in_array($_FILES["cv"]["type"], $allowed_cv_extension) && (empty($_FILES["cv"]["type"]))) {
+        if (!in_array($_FILES["cv"]["type"], $allowed_cv_extension) && (empty($_FILES["cv"]["type"]))) {
             $errors[] = 'Invalid CV type, only pdf is acceptable.<br>';
         }
 
-    }
-    else
-    {
+    } else {
         $errors[] = 'Please, make sure to upload all required files.<br>';
     }
 
-    if(count($errors)===0)
-    {
+    if (count($errors) === 0) {
         $signup = new UserOperations();
         $user_info = array(
-            'name'=>trim($_POST['name']),
+            'name' => trim($_POST['name']),
             'job' => trim($_POST['job']),
-            'username'=>trim($_POST['username']),
-            'user_password'=>password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
-            'CV'=>trim($_POST['username']).".pdf",
-            'image'=>trim($_POST['username']).".jpg",
-            'is_onlline'=>1,
+            'username' => trim($_POST['username']),
+            'user_password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
+            'CV' => trim($_POST['username']) . ".pdf",
+            'image' => trim($_POST['username']) . ".jpg",
+            'is_online' => 1,
         );
-        if(!$signup->sign_up($user_info))
-        {
+        if (!$signup->sign_up($user_info)) {
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Oh!</strong>You should choose another username. This one is not available.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>';
-        }
-        else
-        {
+        } else {
             // FIXME: file path
-            move_uploaded_file($_FILES["img"]["tmp_name"], "C:\wamp64\www\TinyHR\images\\".trim($_POST['username']).".jpg");
-            move_uploaded_file($_FILES["cv"]["tmp_name"], "C:\wamp64\www\TinyHR\cv\\".trim($_POST['username']).".pdf");
+            move_uploaded_file($_FILES["img"]["tmp_name"], "C:\wamp64\www\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
+            move_uploaded_file($_FILES["cv"]["tmp_name"], "C:\wamp64\www\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
         }
-    }
-    else
-    {
+    } else {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oh!</strong>';
-        foreach($errors as $error) {
+        foreach ($errors as $error) {
             echo $error;
         }
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -115,7 +105,7 @@ if(isset($_POST["submit"]))
 <br>
     <div class="col-md-12">
         <h4 class="mb-3">Personal Information</h4>
-        <form class="needs-validation" novalidate="" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" enctype="multipart/form-data">
+        <form class="needs-validation" novalidate="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Full Name" max="100" value="" required>
@@ -175,7 +165,7 @@ if(isset($_POST["submit"]))
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Sign Up!</button>
-            <button type="button" class="btn btn-link"><a href="<?php echo $_SERVER['PHP_SELF']."?login";?>">Already have an account? login!</a></button>
+            <button type="button" class="btn btn-link"><a href="<?php echo $_SERVER['PHP_SELF'] . "?login"; ?>">Already have an account? login!</a></button>
 
         </form>
     </div>
