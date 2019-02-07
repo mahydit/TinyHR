@@ -37,13 +37,26 @@ $data = $member->get_member_information();
         font-size: 18px;
         }
 
+        a.button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 95%;
+        font-size: 18px;
+        }
+
         a {
         text-decoration: none;
         font-size: 22px;
         color: black;
         }
 
-        button:hover, a:hover {
+        button:hover, a:hover, a.button:hover {
         opacity: 0.7;
         }
 </style>
@@ -68,7 +81,7 @@ echo "<a href='../TinyHR/cv/" . $cv . "'>Download CV</a>";
         <a href="#"><i class="fa fa-facebook"></i></a> -->
     </div>
     <p><button>Edit</button></p>
-    <p><button>Logout</button></p>
+    <p><a class = "button" href = "<?php echo $_SERVER['PHP_SELF'] . "?logout"; ?>">Logout</a></p>
     </div>
 
 </body>
