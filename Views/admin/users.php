@@ -10,22 +10,6 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
 
 
 <html>
-
-        <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
-
-            <div class="row">
-                <input id="keyword" class="input" name="keyword" type="text" value="" size="30" />
-
-            </div>
-
-            </div>
-
-            <input id="submit" name="search" type="submit" value="Search" />
-            <input id="submit" name="showall" type="submit" value="Show all" />
-            <br><br><br><br>
-
-        </form>
-
 <style>
   table {
   font-family: arial, sans-serif;
@@ -61,16 +45,16 @@ a:hover, a:active {
   background-color: grey;
 }
 
-#contact_form input[type=text] {
+ #contact_form input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
   float: left;
-  width: 80%;
+  width: 60%;
   background: #f1f1f1;
 }
 
-#contact_form input[type=submit] {
+ #contact_form input[type=submit] {
   float: left;
   width: 10%;
   padding: 10px;
@@ -86,7 +70,28 @@ a:hover, a:active {
   background: grey;
 }
 
+div.wrap{
+    width: 80%;
+}
+
 </style>
+<form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
+
+<div class="row">
+    <input id="keyword" class="input" name="keyword" type="text" value="" size="30" />
+
+</div>
+
+</div>
+
+<input id="submit" name="search" type="submit" value="Search" />
+<input id="submit" name="showall" type="submit" value="Show all" />
+<br><br><br><br>
+
+</form>
+
+<div class = "wrap">
+
 
 <table cellspacing="10">
 
@@ -127,5 +132,6 @@ if (!(isset($_POST['showall']) || isset($_POST['search']))) {
 }
 ?>
 </table>
+</div>
 </html>
 
