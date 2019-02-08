@@ -7,74 +7,75 @@ $items = $admin->get_member_information($current_index);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Profile</title>
-    <style>
-        .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 300px;
-        margin: auto;
-        text-align: center;
-        font-family: arial;
-        }
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        .title {
-        color: grey;
-        font-size: 18px;
-        }
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
 
-        button {
-        border: none;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: #000;
-        text-align: center;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-        }
+  <title>User Profile</title>
+  <style>
+    header {
+      background-color: #666;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: white;
+    }
 
-        a.button {
-        border: none;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: #000;
-        text-align: center;
-        cursor: pointer;
-        width: 95%;
-        font-size: 18px;
-        }
+    section {
+      display: -webkit-flex;
+      display: flex;
+    }
 
-        a {
-        text-decoration: none;
-        font-size: 22px;
-        color: black;
-        }
+    nav {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      background: #ccc;
+      padding: 20px;
+    }
 
-        button:hover, a:hover, a.button:hover {
-        opacity: 0.7;
-        }
-</style>
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    article {
+      -webkit-flex: 3;
+      -ms-flex: 3;
+      flex: 3;
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+
+    footer {
+      background-color: #777;
+      padding: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    /* body{
+  background-color: #f5f5f5;
+} */
+
+    @media (max-width: 600px) {
+      section {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div style="margin: 24px 0;">
-        <!-- <a href="#"><i class="fa fa-dribbble"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-facebook"></i></a> -->
-    </div>
-
-
-<h2 style="text-align:center">Profile</h2>
-
-<div class="card">
-
-  <?php
+  <div class="container">
+    <table cellspacing="10">
+      <?php
 foreach ($items as $item) {
     $photo = $item["image"];
     echo "<img src='../TinyHR/images/" . $photo . "'style='width:100%'>";
@@ -86,6 +87,8 @@ foreach ($items as $item) {
 
 }
 ?>
-</div>
-</html>
+    </table>
+  </div>
+</body>
 
+</html>

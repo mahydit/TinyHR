@@ -1,8 +1,10 @@
 <?php
-class Admin
-{
+class Admin{
+    // private $_db_handler;
     public function __construct()
-    {}
+    {
+        // $this->_db_handler = new MYSQLHandler(__USER_TABLE__);
+    }
 
     public function get_all_members()
     {

@@ -110,6 +110,10 @@ if(isset($_POST["submit"]))
        border-top-left-radius: 0;
        border-top-right-radius: 0;
 }
+
+/* button{
+    background-color: black;
+} */
     </style>
 </head>
 
@@ -117,7 +121,7 @@ if(isset($_POST["submit"]))
 
 <body class="text-center container">
 <div class="form-container">
-    <form class="form-signin"action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+    <form class="form-signin"action="" method="POST" enctype="multipart/form-data">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputUsername" class="sr-only">Username</label>
         <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus="">
@@ -128,8 +132,8 @@ if(isset($_POST["submit"]))
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
-        <button type="button" class="btn btn-link"><a href="<?php echo $_SERVER['PHP_SELF']."?signup"; ?>">New user? Create and account NOW!</a></button>
+        <button class="btn btn-lg btn-dark btn-block" type="submit" name="submit">Sign in</button>
+        <a role="button" class="btn btn-link" href="<?php echo $_SERVER['PHP_SELF']."?signup"; ?>">New user? Create and account NOW!</a></button>
     </form>
     </div>
 
