@@ -52,10 +52,7 @@ if (isset($_POST["submit"])) {
             // FIXME: file path
             move_uploaded_file($_FILES["img"]["tmp_name"], "C:\wamp64\www\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
             move_uploaded_file($_FILES["cv"]["tmp_name"], "C:\wamp64\www\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
-<<<<<<< HEAD
             header("Location: http://localhost/TinyHR/index.php");
-=======
->>>>>>> 2c83eab0de24369531c0c3b5a3274575d70d5e82
         }
     } else {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">

@@ -4,12 +4,15 @@ $current_index = isset($_GET["current"]) && is_numeric($_GET["current"]) ? $_GET
 $next_index = ($current_index + __RECORD_PER_PAGE__) ? $current_index + __RECORD_PER_PAGE__ : 0;
 $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - __RECORD_PER_PAGE__ : 0;
 // $rowcount = $db->get_data_count();
+$admin = new Admin();
 
 ?>
 
 
 
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
   table {
   font-family: arial, sans-serif;
@@ -50,7 +53,7 @@ a:hover, a:active {
   font-size: 17px;
   border: 1px solid grey;
   float: left;
-  width: 60%;
+  width: 80%;
   background: #f1f1f1;
 }
 
@@ -74,7 +77,33 @@ div.wrap{
     width: 80%;
 }
 
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 </style>
+<body>
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <h3 class="w3-bar-item">Online users</h3>
+  <?php
+
+$items = $admin->get_online();
+foreach ($items as $item) {
+    echo "<span class='dot'></span>";
+    echo "<span>" . $item['name'] . "</span><br>";
+}
+?>
+
+</div>
+
+
+<!-- Page Content -->
+<div style="margin-left:15%">
+
 <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
 
 <div class="row">
@@ -82,7 +111,6 @@ div.wrap{
 
 </div>
 
-</div>
 
 <input id="submit" name="search" type="submit" value="Search" />
 <input id="submit" name="showall" type="submit" value="Show all" />
@@ -90,13 +118,9 @@ div.wrap{
 
 </form>
 
-<div class = "wrap">
-
-
 <table cellspacing="10">
 
 <?php
-$admin = new Admin();
 if (isset($_POST["showall"])) {
     // $items = $db->get_full_data();
     $items = $admin->get_all_members();
@@ -116,8 +140,8 @@ echo "<tr>
     </tr>";
 foreach ($items as $item) {
     $photo = $item["image"];
-    $src = str_replace(".jpg", "-thumb.jpg", $photo);
-    echo "<tr><td><img src='../TinyHR/images/" . $src . "'></td>";
+    // $src = str_replace(".jpg", "-thumb.jpg", $photo);
+    echo "<tr><td><img src='../TinyHR/images/" . $photo . "'width = 70px height = 70px></td>";
     $id = $item["user_id"];
     echo "<td>" . $id . "</td>";
     echo "<td>" . $item["name"] . "</td>";
@@ -133,5 +157,6 @@ if (!(isset($_POST['showall']) || isset($_POST['search']))) {
 ?>
 </table>
 </div>
+</body>
 </html>
 
