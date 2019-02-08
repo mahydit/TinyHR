@@ -47,7 +47,8 @@ $data = $member->get_member_information();
         color: black;
         }
 
-        /* button:hover, a:hover {
+
+        /*button:hover, a:hover, a.button:hover {
         opacity: 0.7;
         } */
 

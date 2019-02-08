@@ -8,6 +8,7 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
 ?>
 
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,8 +27,12 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
     /* background-color: #f5f5f5; */
   }
   
-  td,
-  th {
+  
+
+
+    td, th {
+
+
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
@@ -41,7 +46,88 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
     display: inline-block;
     /*Behaves like a div, but can be placed inline*/
     align: center;
+
   }
+
+
+    a:link, a:visited {
+  background-color: black;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: grey;
+}
+
+#contact_form input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+#contact_form input[type=submit] {
+  float: left;
+  width: 10%;
+  padding: 10px;
+  background: black;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+#contact_form input[type=submit]:hover {
+  background: grey;
+}
+
+/* }
+    a:link, a:visited {
+  background-color: black;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: grey;
+}
+
+ #contact_form input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 60%;
+  background: #f1f1f1;
+}
+
+ #contact_form input[type=submit] {
+  float: left;
+  width: 10%;
+  padding: 10px;
+  background: black;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+#contact_form input[type=submit]:hover {
+  background: grey;
+} */
+
+
 
   a:link,
   a:visited {
@@ -90,7 +176,14 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
   /* body{
     background-color: #f5f5f5;
   } */
+
+/* div.wrap{
+    width: 80%;
+} */
+
+
 </style>
+
 </head>
 
 <body>
@@ -105,8 +198,9 @@ $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - 
       <br><br>
     </form>
     <table cellspacing="10">
-
       <?php
+
+
 $admin = new Admin();
 if (isset($_POST["showall"])) {
     // $items = $db->get_full_data();
@@ -143,7 +237,9 @@ if (!(isset($_POST['showall']) || isset($_POST['search']))) {
   echo "<td colspan=3><a role='button' class='btn btn-dar' href='" . $_SERVER['PHP_SELF'] . "?current=$next_index'> Next >> </a></td></tr>";
 }
 ?>
+
     </table>
   </div>
 </body>
+
 </html>
