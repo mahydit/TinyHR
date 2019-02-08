@@ -1,8 +1,10 @@
 <?php
-class Admin
-{
+class Admin{
+    // private $_db_handler;
     public function __construct()
-    {}
+    {
+        // $this->_db_handler = new MYSQLHandler(__USER_TABLE__);
+    }
 
     public function get_all_members()
     {
@@ -25,6 +27,14 @@ class Admin
         // $handler = $this->_db_handler;
         $handler = new MYSQLHandler(__USER_TABLE__);
         $data = $handler->get_record_by_id($index, __PRIMARY_KEY__);
+        return $data;
+    }
+
+    public function get_online()
+    {
+        // $handler = $this->_db_handler;
+        $handler = new MYSQLHandler(__USER_TABLE__);
+        $data = $handler->search('is_online', 1);
         return $data;
     }
 }
