@@ -6,58 +6,75 @@ $items = $admin->get_member_information($current_index);
 
 ?>
 <html>
-<style>
-header {
-  background-color: #666;
-  padding: 30px;
-  text-align: center;
-  font-size: 35px;
-  color: white;
-}
 
-section {
-  display: -webkit-flex;
-  display: flex;
-}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-nav {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  background: #ccc;
-  padding: 20px;
-}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
+  <title>User Profile</title>
+  <style>
+    header {
+      background-color: #666;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: white;
+    }
 
-article {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  background-color: #f1f1f1;
-  padding: 10px;
-}
+    section {
+      display: -webkit-flex;
+      display: flex;
+    }
 
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
+    nav {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      background: #ccc;
+      padding: 20px;
+    }
 
-@media (max-width: 600px) {
-  section {
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-}
-</style>
-<div class="container">
-<table cellspacing="10">
-  <?php
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    article {
+      -webkit-flex: 3;
+      -ms-flex: 3;
+      flex: 3;
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+
+    footer {
+      background-color: #777;
+      padding: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    /* body{
+  background-color: #f5f5f5;
+} */
+
+    @media (max-width: 600px) {
+      section {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <table cellspacing="10">
+      <?php
 foreach ($items as $item) {
     echo "<header>" . $item["name"] . "</header>";
     $photo = $item["image"];
@@ -68,7 +85,8 @@ foreach ($items as $item) {
 
 }
 ?>
-</table>
-</div>
-</html>
+    </table>
+  </div>
+</body>
 
+</html>

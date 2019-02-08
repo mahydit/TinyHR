@@ -10,6 +10,7 @@ if (isset($_SESSION["user_id"])) {
 // (isset($_SESSION["user_id"]))?unset($_SESSION["user_id"]) ;//REVIEW:
 // (isset($_SESSION["is_admin"]))?unset($_SESSION["is_admin"]);//REVIEW:
 session_destroy();
+var_dump($_SESSION);
 // header("Location: index.php");
 header("Location: http://localhost/TinyHR/index.php");
 // require_once "../index.php";
