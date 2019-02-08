@@ -8,14 +8,14 @@ session_regenerate_id();
 $db = new MYSQLHandler("user"); //Admin part
 
 //Routing
-if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true) {
+if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true && !isset($_GET['logout']) ) {
     //admin views should be required here
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
       require_once "Views/admin/user.php";
     } else {
       require_once "Views/admin/users.php";
     }
-} elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false) {
+} elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false && !isset($_GET['logout'])) {
     //members views should be required here
     require_once("Views/member/view_my_profile.php");
 } else {
