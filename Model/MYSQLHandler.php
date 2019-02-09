@@ -35,7 +35,7 @@ class MYSQLHandler implements DbHandler
             $sql .= " from `$table`";
             $sql = str_replace(", from", "from", $sql);
         }
-        $sql .= " limit $start," . __RECORD_PER_PAGE__;
+        $sql .= " WHERE`isAdmin` like '%0%' limit $start," . __RECORD_PER_PAGE__;
         return $this->get_results($sql);
     }
 
@@ -59,20 +59,16 @@ class MYSQLHandler implements DbHandler
         $_handler_result = mysqli_query($this->_db_handler, $sql);
         $_arr_result = array();
 
-        if ($_handler_result) 
-        {
-            while ($row = mysqli_fetch_array($_handler_result, MYSQLI_ASSOC)) 
-            {
+        if ($_handler_result) {
+            while ($row = mysqli_fetch_array($_handler_result, MYSQLI_ASSOC)) {
                 $_arr_result[] = array_change_key_case($row);
             }
-                $this->disconnect();
-                return $_arr_result;
-       }
-        else
-        {
             $this->disconnect();
             return $_arr_result;
-        } 
+        } else {
+            $this->disconnect();
+            return $_arr_result;
+        }
 
     }
 
@@ -85,20 +81,18 @@ class MYSQLHandler implements DbHandler
 
     public function search_exact($column, $column_value)
     {
-        $table=$this->_table;
-        $sql = "select * from `$table` where `$column` = '".$column_value."'";
+        $table = $this->_table;
+        $sql = "select * from `$table` where `$column` = '" . $column_value . "'";
         return $this->get_results($sql);
     }
 
     public function save($new_value)
     {
-        if(is_array($new_value))
-        {
-            $table=$this->_table;
-            $sql1= "insert into `$table` (";
-            $sql2=" values (";
-            foreach ($new_value as $key => $value) 
-            {
+        if (is_array($new_value)) {
+            $table = $this->_table;
+            $sql1 = "insert into `$table` (";
+            $sql2 = " values (";
+            foreach ($new_value as $key => $value) {
 
                 $sql1 .= "`$key` ,";
                 $sql2 .= "'$value' ,";
@@ -145,28 +139,30 @@ class MYSQLHandler implements DbHandler
 
     public function update($new_value, $primary_key, $id)
     {
-        if(is_array($new_value))
-        {
-            $table=$this->_table;
-            $sql= "update `$table` set ";
-            foreach ($new_value as $key => $value) 
-            {
+        if (is_array($new_value)) {
+            $table = $this->_table;
+            $sql = "update `$table` set ";
+            foreach ($new_value as $key => $value) {
                 $sql .= "`$key` = '$value',";
             }
-            $sql= str_replace(",","",$sql);
+            $sql = str_replace(",", "", $sql);
             $sql = $sql . " where `$primary_key` = '$id'";
             $this->debug($sql);
-            if(mysqli_query($this->_db_handler,$sql))
-            {
+            if (mysqli_query($this->_db_handler, $sql)) {
                 $this->disconnect();
                 return true;
-            }
-            else
-            {
+            } else {
                 $this->disconnect();
                 return false;
             }
 
         }
+    }
+
+    public function data_to_export($column, $column_value)
+    {
+        $table = $this->_table;
+        $sql = "select user_id,username,name,job from `$table` where `$column` like '%" . $column_value . "%'";
+        return $this->get_results($sql);
     }
 }

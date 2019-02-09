@@ -1,16 +1,33 @@
 <?php
-class Admin{
+class Admin
+{
     // private $_db_handler;
     public function __construct()
     {
         // $this->_db_handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = new MYSQLHandler(__USER_TABLE__);
+        $productResult = $handler->data_to_export('isAdmin', 0);
+        $filename = "Export_excel.xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        $isPrintHeader = false;
+        if (!empty($productResult)) {
+            foreach ($productResult as $row) {
+                if (!$isPrintHeader) {
+                    echo implode("\t", array_keys($row)) . "\n";
+                    $isPrintHeader = true;
+                }
+                echo implode("\t", array_values($row)) . "\n";
+            }
+        }
+        exit();
     }
 
     public function get_all_members()
     {
         // $handler = $this->_db_handler;
         $handler = new MYSQLHandler(__USER_TABLE__);
-        $data = $handler->get_full_data();
+        $data = $handler->search('isAdmin', 0);
         return $data;
     }
 
@@ -37,4 +54,27 @@ class Admin{
         $data = $handler->search('is_online', 1);
         return $data;
     }
+
+    public function export_excel()
+    {
+        ob_start();
+        $handler = new MYSQLHandler(__USER_TABLE__);
+        $productResult = $handler->data_to_export('isAdmin', 0);
+        $filename = "Export_excel.xls";
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        $isPrintHeader = false;
+        if (!empty($productResult)) {
+            foreach ($productResult as $row) {
+                if (!$isPrintHeader) {
+                    echo implode("\t", array_keys($row)) . "\n";
+                    $isPrintHeader = true;
+                }
+                echo implode("\t", array_values($row)) . "\n";
+            }
+        }
+        exit();
+
+    }
+
 }
