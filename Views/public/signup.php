@@ -49,9 +49,8 @@ if (isset($_POST["submit"])) {
                     </button>
                 </div>';
         } else {
-            // FIXME: file path
-            move_uploaded_file($_FILES["img"]["tmp_name"], "C:\wamp64\www\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
-            move_uploaded_file($_FILES["cv"]["tmp_name"], "C:\wamp64\www\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
+            move_uploaded_file($_FILES["img"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
+            move_uploaded_file($_FILES["cv"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
             header("Location: http://localhost/TinyHR/index.php");
         }
     } else {
@@ -129,9 +128,9 @@ if (isset($_POST["submit"])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text">@</span>
                     </div>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" max="50" required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" max="50" pattern="^[A-Za-z0-9_]{1,15}$" required>
                     <div class="invalid-feedback" style="width: 100%;">
-                        Your username is required.
+                        Your username is required. You can only use letters, digits and underscores.
                     </div>
                 </div>
             </div>

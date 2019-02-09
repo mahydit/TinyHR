@@ -5,7 +5,6 @@ $next_index = ($current_index + __RECORD_PER_PAGE__) ? $current_index + __RECORD
 $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - __RECORD_PER_PAGE__ : 0;
 // $rowcount = $db->get_data_count();
 $admin = new Admin();
-
 ?>
 
 <html>
@@ -18,20 +17,17 @@ $admin = new Admin();
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
 
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
 
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-  table {
+    table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
     }
 
     td, th {
-
-
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
@@ -106,10 +102,11 @@ a:hover, a:active {
 }
 
 </style>
+
 <body>
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
-  <h3 class="w3-bar-item">Online users</h3>
-  <?php
+  <div class="w3-sidebar w3-light-grey w3-bar-block col-2" style="width:15%">
+    <h3 class="w3-bar-item">Online users</h3>
+    <?php
 
 $items = $admin->get_online();
 foreach ($items as $item) {
@@ -118,20 +115,20 @@ foreach ($items as $item) {
 }
 ?>
 
-</div>
+  </div>
 
 
-<!-- Page Content -->
-<div style="margin-left:15%">
+  <!-- Page Content -->
+  <div style="margin-left:15%">
 
-<form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
+    <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
 
-<input type="text" name="keyword">
-<input type="submit" name ="search" value="Search">
-<input type="submit" name ="showall" value="Show All">
-<table cellspacing="10">
+      <input type="text" name="keyword">
+      <input type="submit" name="search" value="Search">
+      <input type="submit" name="showall" value="Show All">
+      <table cellspacing="10">
 
-<?php
+        <?php
 if (isset($_POST["showall"])) {
     // $items = $db->get_full_data();
     $items = $admin->get_all_members();
@@ -180,10 +177,11 @@ if (isset($_POST["export"])) {
 ?>
 </div>
 </body>
+
 </html>
 
-    </table>
-  </div>
+</table>
+</div>
 </body>
 
 </html>
