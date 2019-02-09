@@ -151,9 +151,10 @@ class MYSQLHandler implements DbHandler
             $sql= "update `$table` set ";
             foreach ($new_value as $key => $value) 
             {
-                $sql .= "`$key` = '$value',";
+                $sql .= "`$key` = '$value' ,";
             }
-            $sql= str_replace(",","",$sql);
+            // $sql= str_replace(",","",$sql);
+            $sql = rtrim($sql,",");
             $sql = $sql . " where `$primary_key` = '$id'";
             $this->debug($sql);
             if(mysqli_query($this->_db_handler,$sql))

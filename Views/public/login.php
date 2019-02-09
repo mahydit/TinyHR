@@ -17,13 +17,17 @@ if(isset($_POST["submit"]))
     if(count($errors)===0)
     {
         $login = new UserOperations();
-        if(!$login->login_user(trim($_POST["username"]),trim($_POST["password"]), PASSWORD_DEFAULT))
+        if(!$login->login_user(trim($_POST["username"]),trim($_POST["password"])))
         {
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oh something went wrong!</strong> Check your username and password again.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>';
+        }
+        else
+        {
+            header("Location: http://localhost/TinyHR/index.php");
         }
     }
     else

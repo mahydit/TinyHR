@@ -17,7 +17,15 @@ if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true && !isset($_GE
     }
 } elseif (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === false && !isset($_GET['logout'])) {
     //members views should be required here
-    require_once("Views/member/view_my_profile.php");
+    $member = new Member($_SESSION["user_id"]);
+    if(isset($_GET["edit"]))
+    {
+        require_once("Views/member/edit_my_profile.php");
+    }
+    else
+    {
+        require_once("Views/member/view_my_profile.php");
+    }
 } else {
     //public views should be required here
     if(isset($_GET["signup"]))
