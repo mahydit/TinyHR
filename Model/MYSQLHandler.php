@@ -141,7 +141,7 @@ class MYSQLHandler implements DbHandler
 
     public function update($new_value, $primary_key, $id)
     {
-        if (is_array($new_value)) {
+         if (is_array($new_value)) {
             $table = $this->_table;
             $sql = "update `$table` set ";
             foreach ($new_value as $key => $value) {
