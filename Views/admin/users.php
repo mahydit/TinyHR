@@ -4,7 +4,7 @@ $current_index = isset($_GET["current"]) && is_numeric($_GET["current"]) ? $_GET
 $next_index = ($current_index + __RECORD_PER_PAGE__) ? $current_index + __RECORD_PER_PAGE__ : 0;
 $previous_index = ($current_index - __RECORD_PER_PAGE__ > 0) ? $current_index - __RECORD_PER_PAGE__ : 0;
 // $rowcount = $db->get_data_count();
-$admin = new Admin();
+// $admin = new Admin();
 ?>
 
 <html>
