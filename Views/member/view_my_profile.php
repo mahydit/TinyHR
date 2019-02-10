@@ -69,8 +69,8 @@ echo "<img src='../TinyHR/images/" . $photo . "' style='width:100%'>";
     <br><h1><?php echo $data['name']; ?></h1>
     <p class="title"><?php echo $data['job']; ?></p>
     <p>
-    <?php 
-    $cv = $data["cv"];
+    <?php
+$cv = $data["cv"];
 echo "<a class='download-link' href='../TinyHR/cv/" . $cv . "'> Download CV</a>";
 ?>
 </p>
@@ -81,8 +81,8 @@ echo "<a class='download-link' href='../TinyHR/cv/" . $cv . "'> Download CV</a>"
         <a href="#"><i class="fa fa-facebook"></i></a> -->
     <!-- </div> -->
     <hr>
-    <p><a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF']."?edit";?>">Edit</a></p>
-    <p><a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF']."?logout";?>">Logout</a></p>
+    <p><a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF'] . "?edit"; ?>">Edit</a></p>
+    <p><a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF'] . "?logout"; ?>">Logout</a></p>
     </div>
 
 </body>
