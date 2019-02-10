@@ -1,47 +1,67 @@
 <?php
 $errors=array();
-if(isset($_POST["submit"]))
-{
-    if(!isset($_POST["username"])&& empty($_POST["username"]))
+if($_COOKIE["login_attempts"] < 5){
+    if(isset($_POST["submit"]))
     {
-        $errors[]="Please, enter your username";
-    }
-
-    if (!isset($_POST["password"]) && empty($_POST["password"])) {
-        $errors[] = "Please, enter your password";
-    }
-    
-    if(count($errors)===0)
-    {
-        $login = new UserOperations();
-        if (!$login->login_user(trim($_POST["username"]), trim($_POST["password"]))) {
-            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Oh something went wrong!</strong> Check your username and password again.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>';
-        }
-        else
+        if(!isset($_POST["username"])&& empty($_POST["username"]))
         {
-            if($_POST["remember_me"]=='on'){
-                $hour = time() + 3600 * 24 * 30;
-                setcookie('username',trim($_POST["username"]), $hour);
-                     setcookie('password', trim($_POST["password"]), $hour);
-            }
-            header("Location: http://localhost/TinyHR/index.php");
+            $errors[]="Please, enter your username";
         }
-    } else {
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Oh!</strong>';
-        foreach ($errors as $error) {
-            echo $error;
-        }
-        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>';
-    }
 
+        if (!isset($_POST["password"]) && empty($_POST["password"])) {
+            $errors[] = "Please, enter your password";
+        }
+        
+        if(count($errors)===0)
+        {
+            $login = new UserOperations();
+            if (!$login->login_user(trim($_POST["username"]), trim($_POST["password"]))) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Oh something went wrong!</strong> Check your username and password again.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>';
+                $hour = time() + 60 * 30 ;
+                $attempts = $_COOKIE["login_attempts"];
+                setcookie("login_attempts",$attempts+1, $hour);
+
+
+            }
+            else
+            {
+                if($_POST["remember_me"]=='on'){
+                    $hour = time() + 3600 * 24 * 30;
+                    setcookie('username',trim($_POST["username"]), $hour);
+                        setcookie('password', trim($_POST["password"]), $hour);
+                }
+            define("_ALLOW_ACCESS", 1);
+
+                header("Location: http://localhost/TinyHR/index.php");
+            }
+        } else {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Oh!</strong>';
+            foreach ($errors as $error) {
+                echo $error;
+            }
+            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+            $hour = time() + 60 * 30 ;
+            $attempts = $_COOKIE["login_attempts"];
+            setcookie("login_attempts",$attempts+1, $hour);
+
+        }
+
+    }
+}
+else{
+    echo '<div class="alert alert-danger fade show" role="alert">
+                    <strong> YOU ARE BLOCKED FOR 30 MINUTES.</strong>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
 }
 ?>
 <!DOCTYPE html>

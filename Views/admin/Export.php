@@ -1,4 +1,5 @@
 <?php
+defined("_ALLOW_ACCESS") or die ("Access not allowed.");
 $handler = new MYSQLHandler(__USER_TABLE__);
 $productResult = $handler->data_to_export('isAdmin', 0);
 $filename = "Export_excel.xls";
@@ -15,3 +16,4 @@ if (!empty($productResult)) {
     }
 }
 exit();
+?>
