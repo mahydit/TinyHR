@@ -1,40 +1,31 @@
 <?php
 // require_once('../../autoload.php'); //for debugging
 // session_start(); //for debugging
-$errors=array();
+$errors = array();
 
-if(isset($_POST["submit"]))
-{
-    if(!isset($_POST["username"])&& empty($_POST["username"]))
-    {
-        $errors[]="Please, enter your username";
+if (isset($_POST["submit"])) {
+    if (!isset($_POST["username"]) && empty($_POST["username"])) {
+        $errors[] = "Please, enter your username";
     }
 
-    if(!isset($_POST["password"])&& empty($_POST["password"]))
-    {
-        $errors[]="Please, enter your password";
+    if (!isset($_POST["password"]) && empty($_POST["password"])) {
+        $errors[] = "Please, enter your password";
     }
-    if(count($errors)===0)
-    {
+    if (count($errors) === 0) {
         $login = new UserOperations();
-        if(!$login->login_user(trim($_POST["username"]),trim($_POST["password"])))
-        {
+        if (!$login->login_user(trim($_POST["username"]), trim($_POST["password"]))) {
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oh something went wrong!</strong> Check your username and password again.<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>';
-        }
-        else
-        {
+        } else {
             header("Location: http://localhost/TinyHR/index.php");
         }
-    }
-    else
-    {
+    } else {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Oh!</strong>';
-        foreach($errors as $error) {
+        foreach ($errors as $error) {
             echo $error;
         }
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -42,7 +33,7 @@ if(isset($_POST["submit"]))
             </button>
         </div>';
     }
-    
+
 }
 ?>
 <!DOCTYPE html>
@@ -137,7 +128,7 @@ if(isset($_POST["submit"]))
             </label>
         </div>
         <button class="btn btn-lg btn-dark btn-block" type="submit" name="submit">Sign in</button>
-        <a role="button" class="btn btn-link" href="<?php echo $_SERVER['PHP_SELF']."?signup"; ?>">New user? Create and account NOW!</a></button>
+        <a role="button" class="btn btn-link" href="<?php echo $_SERVER['PHP_SELF'] . "?signup"; ?>">New user? Create and account NOW!</a></button>
     </form>
     </div>
 
