@@ -43,7 +43,7 @@ class MYSQLHandler implements DbHandler
     public function disconnect()
     {
         if ($this->_db_handler) {
-            mysqli_close($this->_db_handler);
+            // mysqli_close($this->_db_handler);
         }
     }
 

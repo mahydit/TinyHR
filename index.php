@@ -10,6 +10,8 @@ $db = new MYSQLHandler("user"); //Admin part
 //Routing
 if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true && !isset($_GET['logout'])) {
     //admin views should be required here
+$admin = new Admin();
+
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         require_once "Views/admin/user.php";
     } elseif (isset($_GET["export"])) {
