@@ -9,13 +9,6 @@ $allowed_img_extension = array(
 );
 $allowed_cv_extension = array("pdf");
 if (isset($_POST["update"]) ) {
-    // var_dump($_FILES);
-    // echo empty($_FILES["img"]);
-    // if (empty($_FILES["cv"]))
-        // echo "true";
-    // else
-    // echo "false";
-    // var_dump($_POST);
     if (file_exists($_FILES['img']['tmp_name']) || is_uploaded_file($_FILES['img']['tmp_name'])) {
         if (($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
             $errorsI[] = 'Please re-upload your image and remember that max size is 1mb.<br>';
@@ -106,79 +99,92 @@ if (isset($_POST["update"]) ) {
     <title>Profile</title>
     <style>
         .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 300px;
-        margin: auto;
-        text-align: center;
-        font-family: arial;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
         }
 
         .title {
-        color: grey;
-        font-size: 18px;
+            color: grey;
+            font-size: 18px;
         }
-        form{
-            width:90%;
+
+        form {
+            width: 90%;
         }
 
         button {
-        border: none;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: #000;
-        text-align: center;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
         }
 
         a {
-        text-decoration: none;
-        font-size: 22px;
-        color: black;
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
         }
 
-        button:hover, a:hover {
-        opacity: 0.7;
+        button:hover,
+        a:hover {
+            opacity: 0.7;
         }
-        
-        body{
+
+        body {
             background-color: #f5f5f5;
         }
 
-    div.show-image {
-    position: relative;
-    float:left;
-    width:100%;
-    margin-top:5px;
-}
-div.show-image:hover img{
-    opacity:0.5;
-}
-div.show-image:hover input {
-    display: block;
-}
-div.show-image input {
-    position:absolute;
-    display:none;
-}
-div.show-image input.update {
-    top:90%;
-    left:0;
-}
-.show-image{
-    margin:0;
-    padding:0;
-}
-     
+        div.show-image {
+            position: relative;
+            float: left;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        div.show-image:hover img {
+            opacity: 0.5;
+        }
+
+        div.show-image:hover input {
+            display: block;
+        }
+
+        div.show-image input {
+            position: absolute;
+            display: none;
+        }
+
+        div.show-image input.update {
+            top: 90%;
+            left: 0;
+        }
+
+        .show-image {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bk-button {
+            left: 10%;
+            top: 0px;
+            width: 10%;
+        }
 </style>
 </head>
 <body>
 <br>
     <h2 style="text-align:center">Update Profile</h2>
 <br>
+<a role="button" class="btn btn-dark bk-button" href="<?php echo $_SERVER['PHP_SELF'];?>">Back</a>
     <div class="card">
     <form class="needs-validation mx-auto" novalidate="" action="" method="POST" enctype="multipart/form-data">
     
@@ -203,20 +209,6 @@ div.show-image input.update {
                     </div>
                 </div>
             </div> 
-            <!-- <div class="mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" pattern=".{8,16}"
-                    required>
-                <div class="invalid-feedback" style="width: 100%;">
-                    Your password length must be 8-16.
-                </div>
-            </div> <br> -->
-            <!-- <div class="mb-3">
-                <div class="form-group">
-                    <label for="uploadImg">Upload Image</label>
-                    <input type="file" class="form-control-file" id="img" name="img" required >
-                </div>
-            </div> <br> -->
             <div class="mb-3">
                 <div class="form-group">
                     <label for="uploadCV" style="font-size: 24px;"><b>Upload CV</b></label>

@@ -3,11 +3,11 @@ class UserOperations{
 
     private $_password;
     private $_user_id;
-    // private $_db_handler;
+    private $_db_handler;
     private $_user_type;
 
     public function __construct(){
-        // $this->_db_handler = new MYSQLHandler(__USER_TABLE__);
+        $this->_db_handler = new MYSQLHandler(__USER_TABLE__);
     }
 
     public function login_user($username, $password){
@@ -40,8 +40,8 @@ class UserOperations{
     }
 
     private function is_password_valid($password){
-        // $handler = $this->_db_handler;
-        $handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = $this->_db_handler;
+        // $handler = new MYSQLHandler(__USER_TABLE__);
         if($entry=$handler->get_record_by_id($this->_user_id,__PRIMARY_KEY__))
         {
             $entry=$entry[0]; //getting first entry since the result is an array of arrays
@@ -53,20 +53,12 @@ class UserOperations{
         return false;
     }
 
-    // private function start_user_session(){
-    //     if(isset($_SESSION))//REVIEW: check this (session_status() != PHP_SESSION_NONE)
-    //     {
-    //         echo "session";
-    //         $this-> save_user_id_to_session();
-    //     }
-    // }
 
     private function save_user_id_to_session()
     {
-        // if(!isset($_SESSION["user_id"]) && empty($_SESSION["user_id"]))
-        // {
+        if (session_status() === PHP_SESSION_ACTIVE ){
             $_SESSION["user_id"]=$this->_user_id; 
-        // }
+        }
     }
 
     private function save_user_type_to_session()
@@ -81,11 +73,6 @@ class UserOperations{
         }
     }
 
-    // private function remember_user_pwd(){
-    //     //save it in a cookie for a period of time
-    //     //only invoked when user checks the checkbox
-    // }
-
     public function get_user_type()
     {
         return $this->_user_type;
@@ -93,8 +80,8 @@ class UserOperations{
 
     private function check_user_type()
     {
-        // $handler = $this->_db_handler;
-        $handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = $this->_db_handler;
+        // $handler = new MYSQLHandler(__USER_TABLE__);
         if($entry=$handler->get_record_by_id($this->_user_id,__PRIMARY_KEY__))
         {
             var_dump($entry);
@@ -115,8 +102,8 @@ class UserOperations{
         $user_info['isAdmin']=0;
         $this->_user_type = "member";
         
-        // $handler = $this->_db_handler; 
-        $handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = $this->_db_handler; 
+        // $handler = new MYSQLHandler(__USER_TABLE__);
         $handler->save($user_info);
 
         $this->_user_id=$this->find_user_id($user_info['username']);
@@ -124,13 +111,12 @@ class UserOperations{
 
         $this->save_user_id_to_session();
         $this->save_user_type_to_session();
-        //REVIEW:save pwd ?
     }
 
     private function find_user_id($username)
     {
-        // $handler = $this->_db_handler;
-        $handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = $this->_db_handler;
+        // $handler = new MYSQLHandler(__USER_TABLE__);
         if($user_id=$handler->search_exact("username",$username))
         {
             $user_id=$user_id[0];
@@ -153,9 +139,8 @@ class UserOperations{
 
     public function update_user_status($user_status,$user_id)
     {
-        echo "user_status".$user_status;
-        // $handler = $this->_db_handler;
-        $handler = new MYSQLHandler(__USER_TABLE__);
+        $handler = $this->_db_handler;
+        // $handler = new MYSQLHandler(__USER_TABLE__);
         $status=array(
             "is_online"=>$user_status,
         );
@@ -164,7 +149,6 @@ class UserOperations{
     
     public function logout($user_id)
     {
-        echo "user_id".$user_id;
         $this->update_user_status(0,$user_id);
     }
 }
