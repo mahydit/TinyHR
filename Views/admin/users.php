@@ -166,15 +166,9 @@ if (!(isset($_POST['showall']) || isset($_POST['search']))) {
 }
 ?>
 </table>
-<input type='submit' name ='export' value='Export'>
+<a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF'] . "?export"; ?>">Export to excel</a>
 <a role="button" class="btn btn-dark" href="<?php echo $_SERVER['PHP_SELF'] . "?logout"; ?>">Logout</a>
-<?php
 
-if (isset($_POST["export"])) {
-    $admin->export_excel();
-}
-
-?>
 </div>
 </body>
 
