@@ -1,4 +1,5 @@
 <?php
+defined("_ALLOW_ACCESS") or die ("Access not allowed.");
 class Member{
     private $_user_id;
 

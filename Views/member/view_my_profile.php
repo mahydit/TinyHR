@@ -1,4 +1,5 @@
 <?php
+defined("_ALLOW_ACCESS") or die ("Access not allowed.");
 $data = $member->get_member_information();
 ?>
 

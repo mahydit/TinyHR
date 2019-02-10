@@ -34,7 +34,6 @@ class MYSQLHandler implements DbHandler
             }
             $sql .= " from `$table`";
             $sql = str_replace(", from", "from", $sql);
-            echo "<h5> Sent Query </h5>" . $sql . "<br>";
         }
         $sql .= " WHERE`isAdmin` like '%0%' limit $start," . __RECORD_PER_PAGE__;
         return $this->get_results($sql);
@@ -43,7 +42,7 @@ class MYSQLHandler implements DbHandler
     public function disconnect()
     {
         if ($this->_db_handler) {
-            // mysqli_close($this->_db_handler);
+            mysqli_close($this->_db_handler);
         }
     }
 
@@ -134,7 +133,6 @@ class MYSQLHandler implements DbHandler
             }
             $sql .= " from `$table`";
             $sql = str_replace(", from", "from", $sql);
-            echo "<h5> Sent Query </h5>" . $sql . "<br>";
         }
         return $this->get_results($sql);
     }

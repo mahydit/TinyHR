@@ -6,7 +6,7 @@ $allowed_img_extension = array(
     "jpeg",
 );
 $allowed_cv_extension = array("pdf");
-var_dump($_FILES);
+
 if (isset($_POST["submit"]) && $_POST['g-recaptcha-response'] != "") {
     $secret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
     $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);

@@ -1,4 +1,5 @@
 <?php
+defined("_ALLOW_ACCESS") or die ("Access not allowed.");
 $data = $member->get_member_information();
 $errorsI = array();
 $errorsC = array();
@@ -174,9 +175,7 @@ if (isset($_POST["update"]) ) {
         }
 
         .bk-button {
-            left: 10%;
-            top: 0px;
-            width: 10%;
+            width:100%;
         }
 </style>
 </head>
@@ -184,7 +183,6 @@ if (isset($_POST["update"]) ) {
 <br>
     <h2 style="text-align:center">Update Profile</h2>
 <br>
-<a role="button" class="btn btn-dark bk-button" href="<?php echo $_SERVER['PHP_SELF'];?>">Back</a>
     <div class="card">
     <form class="needs-validation mx-auto" novalidate="" action="" method="POST" enctype="multipart/form-data">
     
@@ -212,12 +210,14 @@ if (isset($_POST["update"]) ) {
             <div class="mb-3">
                 <div class="form-group">
                     <label for="uploadCV" style="font-size: 24px;"><b>Upload CV</b></label>
+
                     <input type="file" class="form-control-file" id="CV" name="cv">
                 </div>
             </div>
 
     <hr>
             <p> <button class="btn btn-lg btn-dark btn-block" type="submit" name="update">Update</button></p>
+            <a role="button" class="btn btn-dark bk-button" href="<?php echo $_SERVER['PHP_SELF'];?>">Back</a>
         </form>
     </div>
     <script>
