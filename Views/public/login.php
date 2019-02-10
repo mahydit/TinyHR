@@ -2,7 +2,6 @@
 $errors=array();
 if(isset($_POST["submit"]))
 {
-    var_dump($_POST);
     if(!isset($_POST["username"])&& empty($_POST["username"]))
     {
         $errors[]="Please, enter your username";
