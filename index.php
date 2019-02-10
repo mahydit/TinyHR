@@ -5,6 +5,11 @@ define("_ALLOW_ACCESS", 0);
 session_start();
 session_regenerate_id();
 
+if (!isset($_SESSION['EXPIRES']) || $_SESSION['EXPIRES'] < time() + 60) {
+    header("Location: http://localhost/TinyHR/index.php?logout");    
+}
+$_SESSION['EXPIRES'] = time() + 60;
+
 $db = new MYSQLHandler("user"); //Admin part
 
 //Routing
