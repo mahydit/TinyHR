@@ -1,6 +1,4 @@
 <?php
-// require_once '../../autoload.php'; //for debugging
-// session_start();
 $errors = array();
 $max_size = 1000000;
 $allowed_img_extension = array(
@@ -8,6 +6,7 @@ $allowed_img_extension = array(
     "jpeg",
 );
 $allowed_cv_extension = array("pdf");
+var_dump($_FILES);
 if (isset($_POST["submit"])) {
     if (isset($_FILES["img"]) && isset($_FILES["cv"])) {
         if (($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
