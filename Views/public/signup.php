@@ -7,76 +7,80 @@ $allowed_img_extension = array(
 );
 $allowed_cv_extension = array("pdf");
 
-if (isset($_POST["submit"]) && $_POST['g-recaptcha-response'] != "") {
-    $secret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
-    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
-    $responseData = json_decode($verifyResponse);
-    if ($responseData->success) {
+if (isset($_POST["submit"])) {
+    if($_POST['g-recaptcha-response'] != "")
+    {
+        $secret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+        $responseData = json_decode($verifyResponse);
+        if ($responseData->success) {
 
-        if (isset($_FILES["img"]) && isset($_FILES["cv"])) {
-            if (($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
-                $errors[] = 'Please re-upload your image and remember that max size is 1mb.<br>';
-            }
+            if (isset($_FILES["img"]) && isset($_FILES["cv"])) {
+                if (($_FILES["img"]['size'] > $max_size) || ($_FILES["img"]["size"] == 0)) {
+                    $errors[] = 'Please re-upload your image and remember that max size is 1mb.<br>';
+                }
 
-            if (($_FILES["cv"]['size'] > $max_size) || ($_FILES["cv"]["size"] == 0)) {
-                $errors[] = ' Please re-upload your CV and remember that max size is 1mb.<br>';
-            }
+                if (($_FILES["cv"]['size'] > $max_size) || ($_FILES["cv"]["size"] == 0)) {
+                    $errors[] = ' Please re-upload your CV and remember that max size is 1mb.<br>';
+                }
 
-            if (!in_array($_FILES["img"]["type"], $allowed_img_extension) && (empty($_FILES["img"]["type"]))) {
-                $errors[] = 'Invalid image type, only jpg is acceptable.<br>';
-            }
+                if (!in_array($_FILES["img"]["type"], $allowed_img_extension) && (empty($_FILES["img"]["type"]))) {
+                    $errors[] = 'Invalid image type, only jpg is acceptable.<br>';
+                }
 
-            if (!in_array($_FILES["cv"]["type"], $allowed_cv_extension) && (empty($_FILES["cv"]["type"]))) {
-                $errors[] = 'Invalid CV type, only pdf is acceptable.<br>';
-            }
+                if (!in_array($_FILES["cv"]["type"], $allowed_cv_extension) && (empty($_FILES["cv"]["type"]))) {
+                    $errors[] = 'Invalid CV type, only pdf is acceptable.<br>';
+                }
 
-        } else {
-            $errors[] = 'Please, make sure to upload all required files.<br>';
-        }
-
-        if (count($errors) === 0) {
-            $signup = new UserOperations();
-            $user_info = array(
-                'name' => trim($_POST['name']),
-                'job' => trim($_POST['job']),
-                'username' => trim($_POST['username']),
-                'user_password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
-                'CV' => trim($_POST['username']) . ".pdf",
-                'image' => trim($_POST['username']) . ".jpg",
-                'is_online' => 1,
-            );
-            if (!$signup->sign_up($user_info)) {
-                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Oh!</strong>You should choose another username. This one is not available.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>';
             } else {
-                move_uploaded_file($_FILES["img"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
-                move_uploaded_file($_FILES["cv"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
-                header("Location: http://localhost/TinyHR/index.php");
+                $errors[] = 'Please, make sure to upload all required files.<br>';
             }
-        } else {
-            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Oh!</strong>';
-            foreach ($errors as $error) {
-                echo $error;
+
+            if (count($errors) === 0) {
+                $signup = new UserOperations();
+                $user_info = array(
+                    'name' => trim($_POST['name']),
+                    'job' => trim($_POST['job']),
+                    'username' => trim($_POST['username']),
+                    'user_password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
+                    'CV' => trim($_POST['username']) . ".pdf",
+                    'image' => trim($_POST['username']) . ".jpg",
+                    'is_online' => 1,
+                );
+                if (!$signup->sign_up($user_info)) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Oh!</strong>You should choose another username. This one is not available.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>';
+                } else {
+                    move_uploaded_file($_FILES["img"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "\TinyHR\images\\" . trim($_POST['username']) . ".jpg");
+                    move_uploaded_file($_FILES["cv"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "\TinyHR\cv\\" . trim($_POST['username']) . ".pdf");
+                    header("Location: http://localhost/TinyHR/index.php");
+                }
+            } else {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Oh!</strong>';
+                foreach ($errors as $error) {
+                    echo $error;
+                }
+                echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
             }
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>';
         }
     }
-} else {
-    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Oh!</strong>Check the reCaptcha first
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>';
-}
+    else {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Oh!</strong>Check the reCaptcha first
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>';
+    }
+} 
 ?>
 
 <!DOCTYPE html>
