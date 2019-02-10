@@ -1,4 +1,5 @@
 <?php
+defined("_ALLOW_ACCESS") or die ("Access not allowed.");
 class Admin
 {
     public function __construct()
@@ -51,7 +52,6 @@ class Admin
             }
         }
         exit();
-
     }
 
 }
