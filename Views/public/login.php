@@ -1,8 +1,5 @@
 <?php
-// require_once('../../autoload.php'); //for debugging
-// session_start(); //for debugging
 $errors=array();
-
 if(isset($_POST["submit"]))
 {
     if(!isset($_POST["username"])&& empty($_POST["username"]))
@@ -14,6 +11,7 @@ if(isset($_POST["submit"]))
     {
         $errors[]="Please, enter your password";
     }
+    
     if(count($errors)===0)
     {
         $login = new UserOperations();
@@ -27,6 +25,11 @@ if(isset($_POST["submit"]))
         }
         else
         {
+            if($_POST["remember_me"]=='on'){
+                $hour = time() + 3600 * 24 * 30;
+                setcookie('username',trim($_POST["username"]), $hour);
+                     setcookie('password', trim($_POST["password"]), $hour);
+            }
             header("Location: http://localhost/TinyHR/index.php");
         }
     }
@@ -76,8 +79,8 @@ if(isset($_POST["submit"]))
        background-color: #f5f5f5;
    }
 
-   .form-container{
-    margin-top:15%;
+   .form-container {
+       margin-top: 15%;
    }
 
    .form-signin {
@@ -113,32 +116,32 @@ if(isset($_POST["submit"]))
        margin-bottom: 10px;
        border-top-left-radius: 0;
        border-top-right-radius: 0;
-}
+   }
 
-/* button{
-    background-color: black;
-} */
-    </style>
+</style>
 </head>
 
 
 
 <body class="text-center container">
-<div class="form-container">
-    <form class="form-signin"action="" method="POST" enctype="multipart/form-data">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-dark btn-block" type="submit" name="submit">Sign in</button>
-        <a role="button" class="btn btn-link" href="<?php echo $_SERVER['PHP_SELF']."?signup"; ?>">New user? Create and account NOW!</a></button>
-    </form>
+    <div class="form-container">
+        <form class="form-signin" action="" method="POST" enctype="multipart/form-data">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" value="<?php if(isset($_COOKIE['username'])) echo $_COOKIE['username'];?>"
+                required autofocus="">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" name="password" value="<?php if(isset($_COOKIE['password'])) echo $_COOKIE['password'];?>"
+                placeholder="Password" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="remember_me" value="on"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-dark btn-block" type="submit" name="submit">Sign in</button>
+            <a role="button" class="btn btn-link" href="<?php echo $_SERVER['PHP_SELF']." ?signup"; ?>">New user?
+                Create and account NOW!</a></button>
+        </form>
     </div>
 
 
