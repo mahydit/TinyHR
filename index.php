@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ERROR | E_PARSE); 
 require_once "autoload.php";
 define("_ALLOW_ACCESS", 0);
 session_start();
