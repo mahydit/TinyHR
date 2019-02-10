@@ -1,14 +1,14 @@
 <?php
-error_reporting(E_ERROR | E_PARSE); 
+error_reporting(E_ERROR | E_PARSE);
 require_once "autoload.php";
 define("_ALLOW_ACCESS", 0);
 session_start();
 session_regenerate_id();
 
-if (!isset($_SESSION['EXPIRES']) || $_SESSION['EXPIRES'] < time() + 300) {
-    header("Location: http://localhost/TinyHR/index.php?logout");    
-}
-$_SESSION['EXPIRES'] = time() + 300;
+// if (!isset($_SESSION['EXPIRES']) || $_SESSION['EXPIRES'] < time() + 300) {
+//     header("Location: http://localhost/TinyHR/index.php?logout");
+// }
+// $_SESSION['EXPIRES'] = time() + 300;
 
 $db = new MYSQLHandler("user"); //Admin part
 
@@ -39,9 +39,9 @@ if (isset($_SESSION["user_id"]) && $_SESSION["is_admin"] === true && !isset($_GE
     } elseif (isset($_GET['logout'])) {
         require_once "Views/logout.php";
     } else {
-        if(!isset($_COOKIE["login_attempts"])){
-            $hour = time() + 60 * 30 ;
-            setcookie("login_attempts",0, $hour);
+        if (!isset($_COOKIE["login_attempts"])) {
+            $hour = time() + 60 * 30;
+            setcookie("login_attempts", 0, $hour);
         }
         require_once "Views/public/login.php";
     }
