@@ -5,6 +5,7 @@ define("_ALLOW_ACCESS", 0);
 session_start();
 session_regenerate_id();
 
+//to terminate the session after a period of time if user was not active
 // if (!isset($_SESSION['EXPIRES']) || $_SESSION['EXPIRES'] < time() + 300) {
 //     header("Location: http://localhost/TinyHR/index.php?logout");
 // }
